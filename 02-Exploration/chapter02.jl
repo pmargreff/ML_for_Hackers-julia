@@ -98,3 +98,67 @@ mean(heights) - std(heights), mean(heights) + std(heights)
 
 
 quantile(heights, 0.25), quantile(heights, 0.75)
+
+using Gadfly
+plot(df, x="Height", Geom.histogram(bincount=25))
+
+plot(df, x="Height", Geom.histogram(bincount=5))
+
+plot(df, x="Height", Geom.histogram(bincount=10000))
+
+plot(df, x="Height", Geom.histogram)
+
+plot(df, x="Height", y="Gender", Geom.density)
+
+plot(df, x="Height", y="Gender", color="Gender", Geom.density)
+
+plot(df, x="Weight", y="Gender", color="Gender", Geom.density)
+
+plot(df, ygroup="Gender" ,x="Weight", y="Gender", color="Gender", Geom.subplot_grid(Geom.density))
+
+
+
+using Distributions
+
+plot(DataFrame(X = rand(Normal(0, 1), 10000) + rand_normal(0, 1)), x="X", Geom.density)
+
+
+
+srand(1)
+normal_values = rand(Normal(0, 1), 250)
+cauchy_values = rand(Cauchy(0, 1), 250)
+extrema(normal_values)
+
+extrema(cauchy_values)
+
+plot(DataFrame(X = normal_values), x="X", Geom.density, Guide.title("Normal distribution"))
+
+
+plot(DataFrame(X = cauchy_values), x="X", Geom.density, Guide.title("Cauchy distribution"))
+
+
+gamma_values = rand(Gamma(1, 0.001), 100000)
+plot(DataFrame(X = gamma_values), x="X", Geom.density, Guide.title("Gamma values"))
+
+
+plot(df, x="Height", y="Weight", Geom.point)
+
+xmin, xmax = extrema(df[:Height])
+ymin, ymax = extrema(df[:Weight])
+plot(layer(df, x="Height", y="Weight", Geom.point, order = 1),
+layer(x=[xmin, xmax],y=[ymin, ymax], Geom.point,Geom.line, Theme(default_color=colorant"purple"), order = 10))
+
+
+plot(df[1:21,:], x="Height", y="Weight", Geom.point)
+
+plot(df[1:201,:], x="Height", y="Weight", Geom.point)
+
+plot(df[1:2001,:], x="Height", y="Weight", Geom.point)
+
+plot(df, x="Height", y="Weight", Geom.point, color="Gender")
+
+xmin, xmax = extrema(df[:Height])
+ymin, ymax = extrema(df[:Weight])
+plot(layer(df, x="Height", y="Weight", Geom.point, color="Gender", order = 1),
+layer(x=[xmin, xmax],y=[ymin, ymax], Geom.point,Geom.line, Theme(default_color=colorant"purple"), order = 10))
+

@@ -1,0 +1,6 @@
+Pkg.update()
+Pkg.add("DataFrames")
+Pkg.add("Gadfly")
+Pkg.add("Distributions")
+Pkg.add("IJulia")
+Pkg.update()
